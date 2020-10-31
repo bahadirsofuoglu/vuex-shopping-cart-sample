@@ -1,14 +1,42 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <h1 class="title">All Products</h1>
+    <p>{{ length }} products</p>
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="product in products" :key="product.id" track-by="id">
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>${{ product.price }}</td>
+          <td>
+            <button @click="addToCart(product)" class="button is-info">
+              Add to cart
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'Home'
+  name: 'app',
+  computed: mapGetters({
+    products: 'allProducts',
+    length: 'getNumberOfProducts'
+  }),
+  methods: mapActions(['addToCart'])
 }
 </script>
+
+<style lang="scss"></style>
